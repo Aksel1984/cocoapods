@@ -92,11 +92,11 @@ module Pod
           data = { :version => version }
           if version == '0.0.1'
             branches        = GitHub.branches(repo['html_url'])
-            master_name     = repo['master_branch'] || 'master'
-            master          = branches.find { |branch| branch['name'] == master_name }
-            raise Informative, "Unable to find any commits on the master branch for the repository `#{repo['html_url']}`" unless master
+            default_name         = repo['default_branch'] || repo['master_branch'] || 'main'
+            default_branch_data  = branches.find { |branch| branch['name'] == default_name }
+            raise Informative, "Unable to find any commits on the default branch for the repository `#{repo['html_url']}`" unless default_branch_data
             data[:ref_type] = ':commit'
-            data[:ref]      = master['commit']['sha']
+            data[:ref]      = default_branch_data['commit']['sha']
           else
             data[:ref_type] = ':tag'
             data[:ref]      = versions_tags[version]
