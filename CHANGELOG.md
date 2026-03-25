@@ -8,7 +8,7 @@ To install release candidates run `[sudo] gem install cocoapods --pre`
 
 ##### Enhancements
 
-* None.  
+* `pod spec create` now uses the `default_branch` field from the GitHub API (falling back to `master_branch`, then `main`) so that repositories using `main` as their default branch are handled correctly.  
 
 ##### Bug Fixes
 
